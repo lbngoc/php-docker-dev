@@ -31,7 +31,7 @@ else
   $COMPOSER_CMD create-project roots/bedrock ./$SOURCE_DIR
 
 	# Change document root of nginx
-	sed -i "s/root \/var\/www\/html/root \/var\/www\/html\/web/g" ./config/nginx/default.conf
+	sed -i "s/root \/var\/www\/html;/root \/var\/www\/html\/web;/g" ./config/nginx/default.conf
 
   output "Bedrock is installed successfully !" -s
   output "Please update your \".env\" file before run wordpress installer."
