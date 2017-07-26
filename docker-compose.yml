@@ -43,7 +43,7 @@ services:
       - "./public_html:/var/www/html"
       - "./config/php-fpm/php.ini:/usr/local/etc/php/php.ini"
       - "./config/php-fpm/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"
-    restart: always
+    # restart: always
     extra_hosts:
       - "docker-local.dev:172.18.0.1"
   nginx:
@@ -57,4 +57,4 @@ services:
       - "./public_html:/var/www/html"
       - "./config/nginx/default.conf:/etc/nginx/conf.d/default.conf"
       - "./config/certs:/etc/nginx/certs"
-    restart: always
+    # restart: always
