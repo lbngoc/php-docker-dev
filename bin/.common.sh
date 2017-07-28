@@ -7,19 +7,20 @@ yellow=$'\e[33m'
 cyan=$'\e[36m'
 purple=$'\e[35m'
 reset=$'\e[0m'
+bold=$'\e[1m'
 
 ##### UTILITIES FUNCTIONS
 
 output() {
 	case "$2" in
 		-e)
-			OUTPUT="$red$1$reset";;
+			OUTPUT="$bold$red$1$reset";;
 		-s)
-			OUTPUT="$green$1$reset";;
+			OUTPUT="$bold$green$1$reset";;
 		-w)
-			OUTPUT="$yellow$1$reset";;
+			OUTPUT="$bold$yellow$1$reset";;
 		-i)
-			OUTPUT="$cyan$1$reset";;
+			OUTPUT="$bold$cyan$1$reset";;
 		*)
 			OUTPUT="$reset$1";;
 	esac
@@ -27,7 +28,7 @@ output() {
 }
 
 input() {
-	read -p "$cyan> $*$reset" INPUT_VALUE
+	read -p "$bold$cyan> $*$reset" INPUT_VALUE
 	echo $INPUT_VALUE
 }
 
@@ -76,6 +77,14 @@ prepare_empty_dir() {
 	mkdir -p "$target"
 }
 
+check_empty_dir() {
+	output "# Checking install folder..." -i
+	target="$1"
+	if [ ! -z "$(ls -A $target)" ]; then
+		output "$2" -e && exit 1
+	fi
+}
+
 #### CHECK REQUIRED COMMANDS
 
 READLINK='readlink'
@@ -93,8 +102,8 @@ fi
 
 ##### SETUP DIRECTORIES NAME
 
-CURRENT_PATH=$(pwd)
-SCRIPT_PATH=$(dirname "$($READLINK -f "$0")")
-ROOT_PATH=$($READLINK -f "$SCRIPT_DIR/../../")
 SOURCE_DIR='public_html'
-SOURCE_PATH=$($READLINK -f "$CURRENT_DIR/$SOURCE_DIR")
+# CURRENT_PATH=$(pwd)
+# SCRIPT_PATH=$(dirname "$($READLINK -f "$0")")
+# ROOT_PATH=$($READLINK -f "$SCRIPT_DIR/../../")
+# SOURCE_PATH=$($READLINK -f "$CURRENT_DIR/$SOURCE_DIR")

@@ -2,18 +2,22 @@
 
 source "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.common.sh"
 
-check_depedencies
+# check_depedencies
 
-if [ -f "./$SOURCE_DIR/wp-config.php" ];
+if [ -f "/var/www/html/wp-config.php" ];
 then
-	output "Wordpress has already installed at \"$SOURCE_DIR\"."
+	output "Wordpress has already installed at \"$SOURCE_DIR\"." -i
 	output "If you want to install the new one, please rename or remove this folder."
 else
 	confirm_to_continue "Are you sure want to install Wordpress to \"$SOURCE_DIR\" [Yn]? "
 
-	prepare_empty_dir $SOURCE_DIR
+	# prepare_empty_dir "/var/www/html"
+	rm -f "/var/www/html/.gitkeep"
+	check_empty_dir "/var/www/html" "Sorry, but \"$SOURCE_DIR\" is not empty, please backup your data before continue."
 	output "# Running install scripts..." -i
 
-	docker-compose run --rm --user "1000:1000" phpfpm wp core download
-	docker-compose run --rm --user "1000:1000" phpfpm wp core config --dbhost=mysql --dbname=wordpress --dbuser=root --dbpass=password
+	wp core download && \
+	wp core config --dbhost=mysql --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD && \
+	output "Wordpress is installed successfully." -s && \
+	touch /var/www/html/.gitkeep
 fi

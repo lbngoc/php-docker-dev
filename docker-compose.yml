@@ -4,30 +4,25 @@ services:
     image: mysql:5.6
     volumes:
       - "./data/db:/var/lib/mysql"
-    # restart: always
     ports:
       - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: password
+    env_file: .env
   # mailcatcher:
   #    image: schickling/mailcatcher
   #    # restart: always
   #    ports:
   #      - "1025:1025"
   #      - "1080:1080"
-  #    environment:
-  #      MAILCATCHER_PORT: 1025
-  memcached:
-    image: memcached:1.5
+  #    env_file: .env
+  # memcached:
+  #   image: memcached:1.5
   #   # restart: always
   # elasticsearch:
   #   image: elasticsearch:5
   #   # restart: always
-  #   environment:
-  #     ES_JAVA_OPTS: "-Xms750m -Xmx750m"
+  #   env_file: .env
+  #   # environment:
+  #   #  ES_JAVA_OPTS: "-Xms750m -Xmx750m"
   #   ports:
   #     - "9200:9200"
   #   volumes:
@@ -37,13 +32,15 @@ services:
     image: 10up/phpfpm
     depends_on:
       - mysql
-      - memcached
+      # - memcached
       # - elasticsearch
     volumes:
-      - "./public_html:/var/www/html"
+      - "./bin:/docker/bin"
+      - "./data/dumps:/docker/dumps"
       - "./config/php-fpm/php.ini:/usr/local/etc/php/php.ini"
       - "./config/php-fpm/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"
-    # restart: always
+      - "./public_html:/var/www/html"
+    env_file: .env
     extra_hosts:
       - "docker-local.dev:172.18.0.1"
   nginx:
@@ -57,4 +54,3 @@ services:
       - "./public_html:/var/www/html"
       - "./config/nginx/default.conf:/etc/nginx/conf.d/default.conf"
       - "./config/certs:/etc/nginx/certs"
-    # restart: always
