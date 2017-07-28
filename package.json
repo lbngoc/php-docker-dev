@@ -1,0 +1,28 @@
+{
+  "name": "php-docker-dev",
+  "version": "1.0.0",
+  "description": "A simple Docker based development environment for PHP",
+  "main": "index.js",
+  "scripts": {
+    "setup-wordpress": "docker-compose run --rm --user \"1000:1000\" phpfpm /docker/bin/setup-wp.sh",
+    "setup-bedrock": "docker-compose run --rm --user \"1000:1000\" phpfpm /docker/bin/setup-bedrock.sh && ./bin/setup-bedrock.sh --update-root",
+    "ssh": "docker-compose exec --user \"1000:1000\" phpfpm bash",
+    "ssh-root": "docker-compose exec --user root phpfpm bash",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lbngoc/php-docker-dev.git"
+  },
+  "keywords": [
+    "docker",
+    "php",
+    "environment"
+  ],
+  "author": "Ngoc Luong-Bao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lbngoc/php-docker-dev/issues"
+  },
+  "homepage": "https://github.com/lbngoc/php-docker-dev#readme"
+}
