@@ -58,8 +58,7 @@ _Need more scripts ? Just create [new request here](http://github.com/lbngoc/php
 
 * Navigate to `http://localhost` in a browser to open your project.
 
-  - If you want to use a domain other t
-  han `http://localhost`, you'll need to:
+  - If you want to use a domain other than `http://localhost`, you'll need to:
 
     + Add an entry to your hosts file. Ex: `127.0.0.1 your_domain.dev`
 
