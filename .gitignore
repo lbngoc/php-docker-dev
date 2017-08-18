@@ -30,9 +30,10 @@ config.codekit
 /public_html/*
 !/public_html/.gitkeep
 
-/data/*
+/data/dumps/*
 !/data/dumps/.gitkeep
-!/data/.gitkeep
+
+/data/db/*
 
 docker-compose.override.yml
 
