@@ -2,6 +2,8 @@
 
 A simple Docker based development environment for PHP with some installer scripts for *NIX.
 
+> ***If you are using \*NIX system and just want to develop a theme with WordPress, consider refer to this repo [http://github.com/lbngoc/sage-8-webpack](http://github.com/lbngoc/sage-8-webpack)***
+
 ## Requirements
 
 * [Docker](https://www.docker.com/)
